@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
@@ -33,20 +34,26 @@ var updateCmd = &cobra.Command{
 			}
 		}
 
-		// Comando a ejecutar (usar -n para no-interactive sudo)
-		command := "sudo -n apt update"
+		// Comando a ejecutar
+		var cmdName string
+		var cmdArgs []string
+
 		if os.Geteuid() == 0 {
-			command = "apt update"
+			cmdName = "apt"
+			cmdArgs = []string{"update"}
+		} else {
+			cmdName = "sudo"
+			cmdArgs = []string{"apt", "update"}
 		}
 
 		description := i18n.T("update.description")
 
 		if verbose {
-			fmt.Printf("%s: %s\n", i18n.T("error.executing"), command)
+			fmt.Printf("%s: %s %s\n", i18n.T("error.executing"), cmdName, strings.Join(cmdArgs, " "))
 		}
 
 		// Crear el modelo de Bubble Tea
-		model := ui.NewCommandModel(command, description)
+		model := ui.NewCommandModel(cmdName, cmdArgs, description)
 
 		// Ejecutar la interfaz
 		p := tea.NewProgram(model)

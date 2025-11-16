@@ -43,7 +43,8 @@ const (
 )
 
 type CommandModel struct {
-	command     string
+	cmdName     string
+	cmdArgs     []string
 	description string
 	state       CommandState
 	output      string
@@ -54,9 +55,10 @@ type CommandModel struct {
 
 type tickMsg time.Time
 
-func NewCommandModel(command, description string) CommandModel {
+func NewCommandModel(cmdName string, cmdArgs []string, description string) CommandModel {
 	return CommandModel{
-		command:     command,
+		cmdName:     cmdName,
+		cmdArgs:     cmdArgs,
 		description: description,
 		state:       StateInitial,
 	}
@@ -116,9 +118,13 @@ func (m CommandModel) View() string {
 		s += infoStyle.Render(fmt.Sprintf("📋 %s: %s", i18n.T("ui.preparing"), m.description))
 
 	case StateRunning:
-		spinners := []string{"⨾", "⨽", "⨻", "⨿"}
+		spinners := []string{"⩾", "⩽", "⩻", "⩿"}
 		s += loadingStyle.Render(fmt.Sprintf("%s %s: %s", spinners[m.spinner], i18n.T("ui.executing"), m.description))
-		s += "\n" + infoStyle.Render(fmt.Sprintf("%s: %s", i18n.T("ui.command"), m.command))
+		cmdDisplay := m.cmdName
+		if len(m.cmdArgs) > 0 {
+			cmdDisplay += " " + strings.Join(m.cmdArgs, " ")
+		}
+		s += "\n" + infoStyle.Render(fmt.Sprintf("%s: %s", i18n.T("ui.command"), cmdDisplay))
 
 	case StateSuccess:
 		s += successStyle.Render(fmt.Sprintf("✅ %s", i18n.T("ui.success")))
@@ -150,13 +156,11 @@ func (m CommandModel) executeCommand() tea.Cmd {
 	return func() tea.Msg {
 		m.state = StateRunning
 
-		// Dividir el comando en partes
-		parts := strings.Fields(m.command)
-		if len(parts) == 0 {
+		if m.cmdName == "" {
 			return commandFinishedMsg{err: fmt.Errorf("comando vacío")}
 		}
 
-		cmd := exec.Command(parts[0], parts[1:]...)
+		cmd := exec.Command(m.cmdName, m.cmdArgs...)
 		output, err := cmd.CombinedOutput()
 
 		return commandFinishedMsg{
