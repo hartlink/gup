@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"os/exec"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
@@ -18,10 +19,21 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		verbose, _ := cmd.Flags().GetBool("verbose")
 
-		// Usar sudo automáticamente si no somos root
-		command := "apt update"
+		// Verificar si no somos root y necesitamos sudo
 		if os.Geteuid() != 0 {
-			command = "sudo apt update"
+			// Verificar permisos sudo ANTES de iniciar Bubble Tea
+			fmt.Printf("🔐 %s\n", i18n.T("update.checking_sudo"))
+			sudoCheck := exec.Command("sudo", "-v")
+			if err := sudoCheck.Run(); err != nil {
+				fmt.Printf("❌ %s: %v\n", i18n.T("update.sudo_required"), err)
+				os.Exit(1)
+			}
+		}
+
+		// Comando a ejecutar
+		command := "sudo apt update"
+		if os.Geteuid() == 0 {
+			command = "apt update"
 		}
 
 		description := i18n.T("update.description")
