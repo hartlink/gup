@@ -21,8 +21,8 @@ GUP (Go Update) es una herramienta de línea de comandos desarrollada en Go que 
 
 ```bash
 # Clonar el repositorio
-git clone <tu-repositorio>
-cd cli_go
+git clone https://github.com/hartlink/gup.git
+cd gup
 
 # Descargar dependencias
 go mod tidy
@@ -55,8 +55,8 @@ Alternativamente, compila directamente en el servidor:
 
 ```bash
 # En el servidor
-git clone <tu-repositorio>
-cd cli_go
+git clone https://github.com/hartlink/gup.git
+cd gup
 make build
 sudo cp build/gup /usr/local/bin/
 ```

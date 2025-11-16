@@ -21,8 +21,8 @@ GUP (Go Update) is a command-line tool developed in Go that uses Bubble Tea and 
 
 ```bash
 # Clone the repository
-git clone <your-repository>
-cd cli_go
+git clone https://github.com/hartlink/gup.git
+cd gup
 
 # Download dependencies
 go mod tidy
@@ -55,8 +55,8 @@ Alternatively, compile directly on the server:
 
 ```bash
 # On the server
-git clone <your-repository>
-cd cli_go
+git clone https://github.com/hartlink/gup.git
+cd gup
 make build
 sudo cp build/gup /usr/local/bin/
 ```
