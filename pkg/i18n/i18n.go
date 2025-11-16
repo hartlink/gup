@@ -33,13 +33,14 @@ var translations = map[Language]map[string]string{
 		"cmd.permissions":  "La mayoría de comandos usarán sudo automáticamente si es necesario",
 
 		// Update command
-		"update.short":         "Actualiza la lista de paquetes del sistema",
-		"update.long":          "Ejecuta 'apt update' para actualizar la lista de paquetes disponibles\ndesde los repositorios configurados en el sistema Ubuntu.\nEl comando usará sudo automáticamente si es necesario.",
-		"update.no_perms":      "Este comando requiere permisos de administrador.",
-		"update.use_sudo":      "Por favor, ejecuta el comando con 'sudo gup update'",
-		"update.description":   "Actualizando lista de paquetes",
-		"update.checking_sudo": "Verificando permisos de administrador...",
-		"update.sudo_required": "Se requieren permisos de administrador",
+		"update.short":           "Actualiza la lista de paquetes del sistema",
+		"update.long":            "Ejecuta 'apt update' para actualizar la lista de paquetes disponibles\ndesde los repositorios configurados en el sistema Ubuntu.\nEl comando usará sudo automáticamente si es necesario.",
+		"update.no_perms":        "Este comando requiere permisos de administrador.",
+		"update.use_sudo":        "Por favor, ejecuta el comando con 'sudo gup update'",
+		"update.description":     "Actualizando lista de paquetes",
+		"update.checking_sudo":   "Verificando permisos de administrador...",
+		"update.sudo_required":   "Se requieren permisos de administrador",
+		"update.partial_success": "Lista de paquetes actualizada con algunas advertencias (algunos repositorios pueden tener errores)",
 
 		// Demo command
 		"demo.short":       "Ejecuta una demostración de la interfaz de GUP",
@@ -93,13 +94,14 @@ var translations = map[Language]map[string]string{
 		"cmd.permissions":  "Most commands will use sudo automatically if needed",
 
 		// Update command
-		"update.short":         "Updates the system package list",
-		"update.long":          "Runs 'apt update' to update the list of available packages\nfrom the repositories configured on the Ubuntu system.\nThe command will use sudo automatically if needed.",
-		"update.no_perms":      "This command requires administrator permissions.",
-		"update.use_sudo":      "Please run the command with 'sudo gup update'",
-		"update.description":   "Updating package list",
-		"update.checking_sudo": "Checking administrator permissions...",
-		"update.sudo_required": "Administrator permissions required",
+		"update.short":           "Updates the system package list",
+		"update.long":            "Runs 'apt update' to update the list of available packages\nfrom the repositories configured on the Ubuntu system.\nThe command will use sudo automatically if needed.",
+		"update.no_perms":        "This command requires administrator permissions.",
+		"update.use_sudo":        "Please run the command with 'sudo gup update'",
+		"update.description":     "Updating package list",
+		"update.checking_sudo":   "Checking administrator permissions...",
+		"update.sudo_required":   "Administrator permissions required",
+		"update.partial_success": "Package list updated with some warnings (some repositories may have errors)",
 
 		// Demo command
 		"demo.short":       "Run a demonstration of GUP's interface",

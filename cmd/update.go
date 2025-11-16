@@ -44,7 +44,7 @@ var updateCmd = &cobra.Command{
 
 		// Ejecutar comando con output en tiempo real
 		fmt.Printf("⏳ %s...\n\n", i18n.T("update.description"))
-		
+
 		aptCmd := exec.Command(cmdName, cmdArgs...)
 		aptCmd.Stdout = os.Stdout
 		aptCmd.Stderr = os.Stderr
@@ -54,8 +54,21 @@ var updateCmd = &cobra.Command{
 
 		fmt.Println()
 		if err != nil {
-			fmt.Printf("❌ %s: %v\n", i18n.T("ui.error"), err)
-			os.Exit(1)
+			// apt update puede retornar exit codes no-cero por warnings
+			// pero aún así completar la actualización de la lista de paquetes
+			if exitErr, ok := err.(*exec.ExitError); ok {
+				exitCode := exitErr.ExitCode()
+				if exitCode == 100 {
+					// Exit code 100 significa que hubo algunos errores pero la lista se actualizó
+					fmt.Printf("⚠️  %s\n", i18n.T("update.partial_success"))
+				} else {
+					fmt.Printf("❌ %s: %v\n", i18n.T("ui.error"), err)
+					os.Exit(1)
+				}
+			} else {
+				fmt.Printf("❌ %s: %v\n", i18n.T("ui.error"), err)
+				os.Exit(1)
+			}
 		} else {
 			fmt.Printf("✅ %s\n", i18n.T("ui.success"))
 		}
