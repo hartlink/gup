@@ -1,0 +1,47 @@
+package cmd
+
+import (
+	"fmt"
+	"os"
+
+	tea "github.com/charmbracelet/bubbletea"
+	"github.com/spf13/cobra"
+
+	ui "gup/internal"
+	"gup/pkg/i18n"
+)
+
+var updateCmd = &cobra.Command{
+	Use:   "update",
+	Short: i18n.T("update.short"),
+	Long:  i18n.T("update.long"),
+	Run: func(cmd *cobra.Command, args []string) {
+		verbose, _ := cmd.Flags().GetBool("verbose")
+
+		// Usar sudo automáticamente si no somos root
+		command := "apt update"
+		if os.Geteuid() != 0 {
+			command = "sudo apt update"
+		}
+
+		description := i18n.T("update.description")
+
+		if verbose {
+			fmt.Printf("%s: %s\n", i18n.T("error.executing"), command)
+		}
+
+		// Crear el modelo de Bubble Tea
+		model := ui.NewCommandModel(command, description)
+
+		// Ejecutar la interfaz
+		p := tea.NewProgram(model)
+		if _, err := p.Run(); err != nil {
+			fmt.Printf("%s: %v\n", i18n.T("error.interface"), err)
+			os.Exit(1)
+		}
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(updateCmd)
+}
