@@ -24,14 +24,17 @@ var updateCmd = &cobra.Command{
 			// Verificar permisos sudo ANTES de iniciar Bubble Tea
 			fmt.Printf("🔐 %s\n", i18n.T("update.checking_sudo"))
 			sudoCheck := exec.Command("sudo", "-v")
+			sudoCheck.Stdin = os.Stdin
+			sudoCheck.Stdout = os.Stdout
+			sudoCheck.Stderr = os.Stderr
 			if err := sudoCheck.Run(); err != nil {
 				fmt.Printf("❌ %s: %v\n", i18n.T("update.sudo_required"), err)
 				os.Exit(1)
 			}
 		}
 
-		// Comando a ejecutar
-		command := "sudo apt update"
+		// Comando a ejecutar (usar -n para no-interactive sudo)
+		command := "sudo -n apt update"
 		if os.Geteuid() == 0 {
 			command = "apt update"
 		}
