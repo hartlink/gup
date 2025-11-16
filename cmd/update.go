@@ -32,6 +32,9 @@ var updateCmd = &cobra.Command{
 				fmt.Printf("❌ %s: %v\n", i18n.T("update.sudo_required"), err)
 				os.Exit(1)
 			}
+
+			// Mantener sudo activo en background
+			fmt.Printf("⏳ %s\n", i18n.T("update.description"))
 		}
 
 		// Comando a ejecutar
@@ -42,8 +45,9 @@ var updateCmd = &cobra.Command{
 			cmdName = "apt"
 			cmdArgs = []string{"update"}
 		} else {
+			// Usar sudo con flag para preservar environment y no pedir password
 			cmdName = "sudo"
-			cmdArgs = []string{"apt", "update"}
+			cmdArgs = []string{"-n", "apt", "update"}
 		}
 
 		description := i18n.T("update.description")

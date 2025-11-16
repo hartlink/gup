@@ -161,6 +161,8 @@ func (m CommandModel) executeCommand() tea.Cmd {
 		}
 
 		cmd := exec.Command(m.cmdName, m.cmdArgs...)
+		// Preservar el entorno actual para sudo
+		cmd.Env = append(cmd.Env, "SUDO_ASKPASS=")
 		output, err := cmd.CombinedOutput()
 
 		return commandFinishedMsg{
