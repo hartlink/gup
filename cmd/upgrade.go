@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gup/internal/apt"
 	"gup/internal/i18n"
+	"gup/internal/system"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -23,6 +24,14 @@ var upgradeCmd = &cobra.Command{
 
 		fmt.Printf("✅ %s\n", i18n.T("upgrade.success"))
 		fmt.Println()
+
+		// Prompt for restart
+		if system.PromptRestart() {
+			if err := system.Restart(verbose); err != nil {
+				fmt.Printf("❌ %s: %v\n", i18n.T("ui.error"), err)
+				os.Exit(1)
+			}
+		}
 	},
 }
 

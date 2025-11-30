@@ -100,11 +100,15 @@ func Install(packages []string, verbose bool) error {
 		return fmt.Errorf("no packages specified")
 	}
 
+	// Show what will be installed
+	fmt.Printf("\n📦 %s\n", fmt.Sprintf(i18n.T("install.preparing"), packages))
+	fmt.Printf("📋 %s\n\n", i18n.T("install.updating_first"))
+
 	if err := Update(verbose); err != nil {
 		return err
 	}
 
-	fmt.Printf("\n🚀 %s: %v\n", i18n.T("install.description"), packages)
+	fmt.Printf("\n🚀 %s: %v\n\n", i18n.T("install.description"), packages)
 
 	var cmdName string
 	var cmdArgs []string
@@ -128,5 +132,27 @@ func Install(packages []string, verbose bool) error {
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
 
-	return cmd.Run()
+	err := cmd.Run()
+	if err != nil {
+		// Try to provide more specific error messages
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			exitCode := exitErr.ExitCode()
+			switch exitCode {
+			case 100:
+				// Package not found
+				if len(packages) == 1 {
+					return fmt.Errorf(i18n.T("install.error.not_found"), packages[0])
+				}
+				return fmt.Errorf(i18n.T("install.error.unknown"))
+			case 1:
+				// Permission or general error
+				return fmt.Errorf(i18n.T("install.error.permission"))
+			default:
+				return fmt.Errorf(i18n.T("install.error.unknown"))
+			}
+		}
+		return err
+	}
+
+	return nil
 }

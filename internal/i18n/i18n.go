@@ -43,16 +43,24 @@ var translations = map[Language]map[string]string{
 		"update.partial_success": "Lista de paquetes actualizada con algunas advertencias (algunos repositorios pueden tener errores)",
 
 		// Upgrade command
-		"upgrade.short":       "Actualiza los paquetes instalados",
-		"upgrade.long":        "Ejecuta 'apt upgrade' para instalar las versiones más recientes de los paquetes instalados.",
-		"upgrade.description": "Actualizando paquetes del sistema",
-		"upgrade.success":     "Paquetes actualizados correctamente",
+		"upgrade.short":          "Actualiza los paquetes instalados",
+		"upgrade.long":           "Ejecuta 'apt upgrade' para instalar las versiones más recientes de los paquetes instalados.",
+		"upgrade.description":    "Actualizando paquetes del sistema",
+		"upgrade.success":        "Paquetes actualizados correctamente",
+		"upgrade.prompt_restart": "¿Deseas reiniciar el servidor ahora? (s/n):",
 
 		// Install command
-		"install.short":       "Instala nuevos paquetes",
-		"install.long":        "Ejecuta 'apt install' para instalar uno o más paquetes.",
-		"install.description": "Instalando paquetes",
-		"install.success":     "Paquetes instalados correctamente",
+		"install.short":            "Instala nuevos paquetes",
+		"install.long":             "Ejecuta 'apt install' para instalar uno o más paquetes.",
+		"install.description":      "Instalando paquetes",
+		"install.success":          "Paquetes instalados correctamente",
+		"install.preparing":        "Se instalarán los siguientes paquetes: %v",
+		"install.updating_first":   "Primero se actualizará la lista de paquetes...",
+		"install.error.not_found":  "No se pudo encontrar el paquete '%s'",
+		"install.error.permission": "Permiso denegado. Ejecuta el comando con sudo",
+		"install.error.network":    "Error de red al intentar instalar paquetes",
+		"install.error.dependency": "Error de dependencias al instalar paquetes",
+		"install.error.unknown":    "Error desconocido al instalar paquetes",
 
 		// Demo command
 		"demo.short":       "Ejecuta una demostración de la interfaz de GUP",
@@ -66,6 +74,14 @@ var translations = map[Language]map[string]string{
 		"version.long":      "Muestra la versión actual de GUP y información de compilación.",
 		"version.tool":      "Herramienta CLI para mantenimiento de servidor Ubuntu",
 		"version.developed": "Desarrollado con ❤️  usando Go, Cobra y Bubble Tea",
+
+		// Restart command
+		"restart.short":     "Reinicia el servidor",
+		"restart.long":      "Reinicia el servidor ejecutando 'reboot now'.",
+		"restart.warning":   "⚠️  ADVERTENCIA: Esta acción reiniciará el servidor inmediatamente",
+		"restart.confirm":   "¿Estás seguro que deseas reiniciar el servidor? (s/n):",
+		"restart.cancelled": "Reinicio cancelado",
+		"restart.executing": "Reiniciando servidor...",
 
 		// Root command
 		"root.short": "CLI para automatizar tareas de mantenimiento de servidor Ubuntu",
@@ -116,16 +132,24 @@ var translations = map[Language]map[string]string{
 		"update.partial_success": "Package list updated with some warnings (some repositories may have errors)",
 
 		// Upgrade command
-		"upgrade.short":       "Upgrades installed packages",
-		"upgrade.long":        "Runs 'apt upgrade' to install the newest versions of all installed packages.",
-		"upgrade.description": "Upgrading system packages",
-		"upgrade.success":     "Packages upgraded successfully",
+		"upgrade.short":          "Upgrades installed packages",
+		"upgrade.long":           "Runs 'apt upgrade' to install the newest versions of all installed packages.",
+		"upgrade.description":    "Upgrading system packages",
+		"upgrade.success":        "Packages upgraded successfully",
+		"upgrade.prompt_restart": "Do you want to restart the server now? (y/n):",
 
 		// Install command
-		"install.short":       "Installs new packages",
-		"install.long":        "Runs 'apt install' to install one or more packages.",
-		"install.description": "Installing packages",
-		"install.success":     "Packages installed successfully",
+		"install.short":            "Installs new packages",
+		"install.long":             "Runs 'apt install' to install one or more packages.",
+		"install.description":      "Installing packages",
+		"install.success":          "Packages installed successfully",
+		"install.preparing":        "The following packages will be installed: %v",
+		"install.updating_first":   "Package list will be updated first...",
+		"install.error.not_found":  "Unable to locate package '%s'",
+		"install.error.permission": "Permission denied. Run the command with sudo",
+		"install.error.network":    "Network error while trying to install packages",
+		"install.error.dependency": "Dependency error while installing packages",
+		"install.error.unknown":    "Unknown error while installing packages",
 
 		// Demo command
 		"demo.short":       "Run a demonstration of GUP's interface",
@@ -139,6 +163,14 @@ var translations = map[Language]map[string]string{
 		"version.long":      "Shows the current GUP version and build information.",
 		"version.tool":      "CLI tool for Ubuntu server maintenance",
 		"version.developed": "Developed with ❤️  using Go, Cobra and Bubble Tea",
+
+		// Restart command
+		"restart.short":     "Restart the server",
+		"restart.long":      "Restarts the server by running 'reboot now'.",
+		"restart.warning":   "⚠️  WARNING: This action will restart the server immediately",
+		"restart.confirm":   "Are you sure you want to restart the server? (y/n):",
+		"restart.cancelled": "Restart cancelled",
+		"restart.executing": "Restarting server...",
 
 		// Root command
 		"root.short": "CLI to automate Ubuntu server maintenance tasks",
