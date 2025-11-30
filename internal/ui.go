@@ -2,7 +2,7 @@ package ui
 
 import (
 	"fmt"
-	"gup/pkg/i18n"
+	"gup/internal/i18n"
 	"os/exec"
 	"strings"
 	"time"

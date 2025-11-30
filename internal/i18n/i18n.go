@@ -1,7 +1,7 @@
 package i18n
 
 import (
-	"gup/pkg/config"
+	"gup/internal/config"
 	"os"
 	"strings"
 )
@@ -41,6 +41,18 @@ var translations = map[Language]map[string]string{
 		"update.checking_sudo":   "Verificando permisos de administrador...",
 		"update.sudo_required":   "Se requieren permisos de administrador",
 		"update.partial_success": "Lista de paquetes actualizada con algunas advertencias (algunos repositorios pueden tener errores)",
+
+		// Upgrade command
+		"upgrade.short":       "Actualiza los paquetes instalados",
+		"upgrade.long":        "Ejecuta 'apt upgrade' para instalar las versiones más recientes de los paquetes instalados.",
+		"upgrade.description": "Actualizando paquetes del sistema",
+		"upgrade.success":     "Paquetes actualizados correctamente",
+
+		// Install command
+		"install.short":       "Instala nuevos paquetes",
+		"install.long":        "Ejecuta 'apt install' para instalar uno o más paquetes.",
+		"install.description": "Instalando paquetes",
+		"install.success":     "Paquetes instalados correctamente",
 
 		// Demo command
 		"demo.short":       "Ejecuta una demostración de la interfaz de GUP",
@@ -102,6 +114,18 @@ var translations = map[Language]map[string]string{
 		"update.checking_sudo":   "Checking administrator permissions...",
 		"update.sudo_required":   "Administrator permissions required",
 		"update.partial_success": "Package list updated with some warnings (some repositories may have errors)",
+
+		// Upgrade command
+		"upgrade.short":       "Upgrades installed packages",
+		"upgrade.long":        "Runs 'apt upgrade' to install the newest versions of all installed packages.",
+		"upgrade.description": "Upgrading system packages",
+		"upgrade.success":     "Packages upgraded successfully",
+
+		// Install command
+		"install.short":       "Installs new packages",
+		"install.long":        "Runs 'apt install' to install one or more packages.",
+		"install.description": "Installing packages",
+		"install.success":     "Packages installed successfully",
 
 		// Demo command
 		"demo.short":       "Run a demonstration of GUP's interface",

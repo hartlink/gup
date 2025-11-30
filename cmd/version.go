@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"gup/pkg/i18n"
+	"gup/internal/i18n"
 )
 
 const (

@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra"
 
 	ui "gup/internal"
-	"gup/pkg/i18n"
+	"gup/internal/i18n"
 )
 
 var demoCmd = &cobra.Command{
