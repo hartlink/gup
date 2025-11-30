@@ -72,7 +72,24 @@ Updates the system package list by running `apt update`.
 gup update
 ```
 
-> **Note**: The command will use `sudo` automatically if needed.
+#### `gup upgrade`
+Upgrades all installed packages to their latest versions. Automatically runs `apt update` first.
+
+```bash
+gup upgrade
+```
+
+#### `gup install`
+Installs one or more packages. Automatically runs `apt update` first.
+
+```bash
+gup install <package1> [package2] [...]
+
+# Example
+gup install nginx postgresql
+```
+
+> **Note**: All commands will use `sudo` automatically if needed.
 
 **Options:**
 - `-v, --verbose`: Shows detailed information during execution
@@ -114,6 +131,13 @@ See more options in [docs/config.md](docs/config.md).
 # Update package list
 gup update
 
+# Upgrade all packages
+gup upgrade
+
+# Install specific packages
+gup install nginx
+gup install postgresql redis-server
+
 # Update with detailed output
 gup update --verbose
 
@@ -132,11 +156,14 @@ cli_go/
 ├── cmd/                 # Cobra commands
 │   ├── root.go          # Root command
 │   ├── update.go        # Update command
+│   ├── upgrade.go       # Upgrade command
+│   ├── install.go       # Install command
 │   ├── demo.go          # Demo command
 │   └── version.go       # Version command
-├── internal/            # Internal logic
-│   └── ui.go           # Bubble Tea interface
-├── pkg/                 # Public packages
+├── internal/            # Internal application code
+│   ├── ui.go           # Bubble Tea interface
+│   ├── apt/            # APT package management
+│   │   └── apt.go      # Update/Upgrade/Install logic
 │   ├── i18n/           # Internationalization system
 │   │   └── i18n.go     # ES/EN translations
 │   └── config/         # Configuration system
@@ -179,7 +206,8 @@ make deps
 
 ## 📝 Roadmap
 
-- [ ] `gup upgrade` - Upgrade system packages
+- [x] `gup upgrade` - Upgrade system packages
+- [x] `gup install` - Install packages
 - [ ] `gup cleanup` - Clean unnecessary packages
 - [ ] `gup status` - Show system status
 - [ ] `gup logs` - View system logs

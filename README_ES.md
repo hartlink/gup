@@ -72,7 +72,24 @@ Actualiza la lista de paquetes del sistema ejecutando `apt update`.
 gup update
 ```
 
-> **Nota**: El comando usará `sudo` automáticamente si es necesario.
+#### `gup upgrade`
+Actualiza todos los paquetes instalados a sus últimas versiones. Ejecuta `apt update` automáticamente primero.
+
+```bash
+gup upgrade
+```
+
+#### `gup install`
+Instala uno o más paquetes. Ejecuta `apt update` automáticamente primero.
+
+```bash
+gup install <paquete1> [paquete2] [...]
+
+# Ejemplo
+gup install nginx postgresql
+```
+
+> **Nota**: Todos los comandos usarán `sudo` automáticamente si es necesario.
 
 **Opciones:**
 - `-v, --verbose`: Muestra información detallada durante la ejecución
@@ -114,6 +131,13 @@ Ver más opciones en [docs/config.md](docs/config.md).
 # Actualizar la lista de paquetes
 gup update
 
+# Actualizar todos los paquetes
+gup upgrade
+
+# Instalar paquetes específicos
+gup install nginx
+gup install postgresql redis-server
+
 # Actualizar con salida detallada
 gup update --verbose
 
@@ -132,11 +156,14 @@ cli_go/
 ├── cmd/                 # Comandos de Cobra
 │   ├── root.go          # Comando raíz
 │   ├── update.go        # Comando update
+│   ├── upgrade.go       # Comando upgrade
+│   ├── install.go       # Comando install
 │   ├── demo.go          # Comando demo
 │   └── version.go       # Comando version
-├── internal/            # Lógica interna
-│   └── ui.go           # Interfaz de Bubble Tea
-├── pkg/                 # Paquetes públicos
+├── internal/            # Código interno de la aplicación
+│   ├── ui.go           # Interfaz de Bubble Tea
+│   ├── apt/            # Gestión de paquetes APT
+│   │   └── apt.go      # Lógica Update/Upgrade/Install
 │   ├── i18n/           # Sistema de internacionalización
 │   │   └── i18n.go     # Traducciones ES/EN
 │   └── config/         # Sistema de configuración
@@ -179,7 +206,8 @@ make deps
 
 ## 📝 Roadmap
 
-- [ ] `gup upgrade` - Actualizar paquetes del sistema
+- [x] `gup upgrade` - Actualizar paquetes del sistema
+- [x] `gup install` - Instalar paquetes
 - [ ] `gup cleanup` - Limpiar paquetes innecesarios
 - [ ] `gup status` - Mostrar estado del sistema
 - [ ] `gup logs` - Ver logs del sistema
